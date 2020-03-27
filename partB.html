@@ -11,10 +11,11 @@
     <p>How many buttons to create?</p>
     <input type="text" placeholder="Enter a number..." id="myInput">
     <script>
-
+        //Global Variables.
         let buttonList = [];
-        let clickNum = 1;
+        let clickNum = 0;
 
+        //Main function.
         function myFunction() {
             let userIn = document.getElementById("myInput").value;
 
@@ -23,7 +24,7 @@
                     let randomColor = Math.floor(Math.random() * 16777215).toString(16);
                     let leftPos = i * 120;
                     let topPos = 150;
-                    buttonList.push(new Button(i, "120px", "60px", topPos, leftPos, randomColor));
+                    buttonList.push(new Button(i, "120px", "60px", topPos, leftPos, randomColor, "hidden"));
                 }
                 moveButton();
 
@@ -34,7 +35,8 @@
             }
         }
 
-        function Button(order, width, height, top, left, color) {
+        //Button creation constructor.
+        function Button(order, width, height, top, left, color, border) {
             this.order = order;
             this.btn1 = document.createElement("button");
             this.btn1.style.width = width;
@@ -42,30 +44,32 @@
             this.btn1.style.backgroundColor = "#" + color;
             this.btn1.style.fontSize = "20px";
             this.btn1.style.position = "absolute";
-            //this.btn1.onclick =this.orderCheck(order);
+            this.btn1.onclick = rightOrder(order, border);
             document.body.appendChild(this.btn1);
 
+            //Location setting function.
             this.setLocation = function (top, left) {
                 this.btn1.style.top = top + "px";
                 this.btn1.style.left = left + "px";
             };
 
-            this.setText = function(text){
+            //Button text adder.
+            this.setText = function (text) {
                 this.btn1.innerHTML = text;
             }
 
-            /**this.orderCheck = function(order){
-            if (clickNum == order){
-                clickNum++;
-            }else {
-                document.write("Wrong Order");
+            //Border adder (indicating clicking).
+            this.indicator = function (border) {
+                this.btn1.style.border = border;
             }
-        }**/
+
 
             this.setLocation(top, left);
+            this.indicator(border);
 
         }
 
+        //Button moving functionality function.
         function moveButton() {
             let time = document.getElementById("myInput").value;
             let wait = time * 1000;
@@ -80,17 +84,38 @@
             }, wait);
         }
 
-        function hint(){
+        //Hint button functionality function.
+        function hint() {
             for (let k = 0; k < buttonList.length; k++) {
-                buttonList[k].setText(k+1);
+                buttonList[k].setText(k + 1);
             }
         }
 
+        //Clicking order validating function.
+        function rightOrder(order, border) {
+            let cIn = document.getElementById("myInput").value;
+            return function () {
+                if (order === clickNum) {
+                    if (order === cIn - 1) {
+                        clickNum = 0;
+                        return alert("Excellent Memory!");
+                    }
+                    buttonList[order].indicator("2px solid black");
+                    clickNum++;
+                } else {
+                    clickNum = 0;
+                    window.alert("Wrong Order!");
+                }
+            }
+        }
+
+        //Textbox submittion button.
         let btn = document.createElement("button");
         document.body.appendChild(btn);
         btn.innerHTML = "Go";
         btn.onclick = myFunction;
 
+        //Hint button.
         let btn2 = document.createElement("button");
         document.body.appendChild(btn2);
         btn2.innerHTML = "Click for hint!";
@@ -99,7 +124,6 @@
         btn2.style.height = "35px";
         btn2.style.backgroundColor = "Yellow";
         btn2.style.margin = "20px";
-
     </script>
 
 </body>
