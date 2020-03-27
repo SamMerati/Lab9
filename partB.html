@@ -42,6 +42,7 @@
             this.btn1.style.backgroundColor = "#" + color;
             this.btn1.style.fontSize = "20px";
             this.btn1.style.position = "absolute";
+            //this.btn1.onclick =this.orderCheck(order);
             document.body.appendChild(this.btn1);
 
             this.setLocation = function (top, left) {
@@ -52,6 +53,14 @@
             this.setText = function(text){
                 this.btn1.innerHTML = text;
             }
+
+            /**this.orderCheck = function(order){
+            if (clickNum == order){
+                clickNum++;
+            }else {
+                document.write("Wrong Order");
+            }
+        }**/
 
             this.setLocation(top, left);
 
