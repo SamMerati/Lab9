@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Part B</title>
+</head>
+
+<body>
+    <p>How many buttons to create?</p>
+    <input type="text" placeholder="Enter a number..." id="myInput">
+    <script>
+
+        let buttonList = [];
+        let clickNum = 1;
+
+        function myFunction() {
+            let userIn = document.getElementById("myInput").value;
+
+            if (userIn >= 2 && userIn <= 10) {
+                for (let i = 0; i < userIn; i++) {
+                    let randomColor = Math.floor(Math.random() * 16777215).toString(16);
+                    let leftPos = i * 120;
+                    let topPos = 150;
+                    buttonList.push(new Button(i, "120px", "60px", topPos, leftPos, randomColor));
+                }
+                moveButton();
+
+            } else {
+                document.write("Invalid Input");
+                document.write("<br>");
+                document.write("Your number must be between 2 and 10!");
+            }
+        }
+
+        function Button(order, width, height, top, left, color) {
+            this.order = order;
+            this.btn1 = document.createElement("button");
+            this.btn1.style.width = width;
+            this.btn1.style.height = height;
+            this.btn1.style.backgroundColor = "#" + color;
+            this.btn1.style.fontSize = "20px";
+            this.btn1.style.position = "absolute";
+            this.btn1.onclick =this.orderCheck(order);
+            document.body.appendChild(this.btn1);
+
+            this.setLocation = function (top, left) {
+                this.btn1.style.top = top + "px";
+                this.btn1.style.left = left + "px";
+            };
+
+            this.setText = function(text){
+                this.btn1.innerHTML = text;
+            }
+
+            this.orderCheck = function(order){
+            if (clickNum == order){
+                clickNum++;
+            }else {
+                document.write("Wrong Order");
+            }
+        }
+
+            this.setLocation(top, left);
+
+        }
+
+        function moveButton() {
+            let time = document.getElementById("myInput").value;
+            let wait = time * 1000;
+            let window_height = window.innerHeight;
+            let window_width = window.innerWidth;
+            setTimeout(function () {
+                for (let j = 0; j < buttonList.length; j++) {
+                    buttonList[j].setLocation(
+                        (Math.random() * (window_height - 60)),
+                        (Math.random() * (window_width - 120)));
+                }
+            }, wait);
+        }
+
+        function hint(){
+            for (let k = 0; k < buttonList.length; k++) {
+                buttonList[k].setText(k+1);
+            }
+        }
+
+        let btn = document.createElement("button");
+        document.body.appendChild(btn);
+        btn.innerHTML = "Go";
+        btn.onclick = myFunction;
+
+        let btn2 = document.createElement("button");
+        document.body.appendChild(btn2);
+        btn2.innerHTML = "Click for hint!";
+        btn2.onclick = hint;
+        btn2.style.width = "120px";
+        btn2.style.height = "35px";
+        btn2.style.backgroundColor = "Yellow";
+        btn2.style.margin = "20px";
+
+    </script>
+
+</body>
+
+</html>
