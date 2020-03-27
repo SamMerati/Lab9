@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Part A</title>
+</head>
+
+<body>
+    <p>How many buttons to create?</p>
+    <input type="text" placeholder="Enter a number..." id="myInput">
+    <script>
+        let buttonList = [];
+
+        function myFunction() {
+            let userIn = document.getElementById("myInput").value;
+            if (userIn >= 5 && userIn <= 100) {
+                for (let i = 0; i < userIn; i++) {
+                    let window_height = window.innerHeight;
+                    let window_width = window.innerWidth
+
+                    let randomColor = Math.floor(Math.random() * 16777215).toString(16);
+                    let randomTop = (Math.random() * (window_height - 60));
+                    let randomLeft = (Math.random() * (window_width - 120));
+
+                    buttonList.push(new Button("120px", "60px", randomTop, randomLeft, randomColor));
+                }
+                moveButton();
+
+            } else {
+                document.write("Invalid Input");
+                document.write("<br>");
+                document.write("Your number must be between 5 and 100!");
+            }
+        }
+
+
+        function Button(width, height, top, left, color) {
+
+            this.btn1 = document.createElement("button");
+            this.btn1.style.width = width;
+            this.btn1.style.height = height;
+            this.btn1.style.backgroundColor = "#" + color;
+            this.btn1.style.position = "absolute";
+            document.body.appendChild(this.btn1);
+
+            this.setLocation = function (top, left) {
+                this.btn1.style.top = top + "px";
+                this.btn1.style.left = left + "px";
+            };
+
+            this.setLocation(top, left);
+
+        }
+
+        function moveButton() {
+            setInterval(function () {
+                let window_height = window.innerHeight;
+                let window_width = window.innerWidth
+                for (let j = 0; j < buttonList.length; j++) {
+                    buttonList[j].setLocation(
+                        (Math.random() * (window_height - 60)),
+                        (Math.random() * (window_width - 120)));
+                }
+            }, 2000);
+
+        }
+
+
+
+        let btn = document.createElement("button");
+        document.body.appendChild(btn);
+        btn.innerHTML = "Go";
+        btn.onclick = myFunction;
+    </script>
+</body>
+
+</html>
