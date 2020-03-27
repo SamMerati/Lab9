@@ -8,11 +8,14 @@
 </head>
 
 <body>
+
     <p>How many buttons to create?</p>
     <input type="text" placeholder="Enter a number..." id="myInput">
     <script>
+        //Global variable
         let buttonList = [];
 
+        //Main function
         function myFunction() {
             let userIn = document.getElementById("myInput").value;
             if (userIn >= 5 && userIn <= 100) {
@@ -35,7 +38,7 @@
             }
         }
 
-
+        //Button creation constructor.
         function Button(width, height, top, left, color) {
 
             this.btn1 = document.createElement("button");
@@ -54,6 +57,7 @@
 
         }
 
+        //Button mover function.
         function moveButton() {
             setInterval(function () {
                 let window_height = window.innerHeight;
@@ -67,8 +71,7 @@
 
         }
 
-
-
+        //Textbox submittion button.
         let btn = document.createElement("button");
         document.body.appendChild(btn);
         btn.innerHTML = "Go";
