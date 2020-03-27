@@ -22,9 +22,9 @@
             if (userIn >= 2 && userIn <= 10) {
                 for (let i = 0; i < userIn; i++) {
                     let randomColor = Math.floor(Math.random() * 16777215).toString(16);
-                    let leftPos = i * 120;
+                    let leftPos = (i * 130) + 10;
                     let topPos = 150;
-                    buttonList.push(new Button(i, "120px", "60px", topPos, leftPos, randomColor, "hidden"));
+                    buttonList.push(new Button(i, "120px", "60px", topPos, leftPos, randomColor, "thin solid black"));
                 }
                 moveButton();
 
@@ -100,7 +100,7 @@
                         clickNum = 0;
                         return alert("Excellent Memory!");
                     }
-                    buttonList[order].indicator("2px solid black");
+                    buttonList[order].indicator("3px solid black");
                     clickNum++;
                 } else {
                     clickNum = 0;
